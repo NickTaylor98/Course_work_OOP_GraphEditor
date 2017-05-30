@@ -11,6 +11,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
+using Color = System.Drawing.Color;
 
 namespace kursach.Core
 {
@@ -31,34 +32,6 @@ namespace kursach.Core
 
 		// Испольузется для именования новых слоев
 		public static int LayersIndexes { get; set; }
-
-		//private static Brush _color = Brushes.Black;
-		//public static Brush Color
-		//{
-		//	get
-		//	{
-		//		return _color;
-		//	}
-		//	set
-		//	{
-		//		_color = value;
-		//		ChangeColor(value, null);
-		//	}
-		//}
-
-		//private static Instruments _currentTool = Instruments.Arrow;
-		//public static Instruments CurrentTool
-		//{
-		//	get
-		//	{
-		//		return _currentTool;
-		//	}
-		//	set
-		//	{
-		//		_currentTool = value;
-		//		ChangeInstrument(value, null);
-		//	}
-		//}
 
 		private static Size _brushSize;
 		public static Size BrushSize
@@ -117,8 +90,8 @@ namespace kursach.Core
 
 		public static Color GetPixelColor(Point point, ref Canvas canvas)
 		{
-			var color = GetBitmapFromCanvas(canvas).GetPixel((int)point.X, (int)point.Y);
-			return Color.FromArgb(color.A, color.R, color.G, color.B);
+			return GetBitmapFromCanvas(canvas).GetPixel((int)point.X, (int)point.Y);
+			//return Color.FromArgb(color.A, color.R, color.G, color.B);
 		}
 
 		public static double GetDistance(double X1, double Y1, double X2, double Y2)
