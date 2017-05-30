@@ -1,0 +1,29 @@
+﻿<Window x:Class="kursach.Controls.BrightnessContrastWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kursach.Controls"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/logo.png"
+        mc:Ignorable="d"
+        Title="Яркость / Контрасность" Height="237.31" Width="321.897" Closed="WindowClosed">
+    <Grid Background="White">
+
+        <DockPanel VerticalAlignment="Top" Margin="10,10,10,0">
+            <Label Content="Яркость" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="25" Width="55" VerticalContentAlignment="Center"/>
+            <Slider Name="BrightnessSlider"  TickPlacement="BottomRight" TickFrequency="20" Style="{StaticResource MaterialDesignDiscreteSlider}" IsSnapToTickEnabled="True" Minimum="-255" Maximum="255"  Value="0" ValueChanged="BrightnessSlider_Changed" Width="190" HorizontalContentAlignment="Right" HorizontalAlignment="Right"/>
+        </DockPanel>
+
+
+        <DockPanel VerticalAlignment="Top" Margin="10,80,10,0">
+            <Label Content="Контрастность" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="90" VerticalContentAlignment="Center"/>
+
+            <!--<TextBox Text="{Binding ElementName=ContrastSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />-->
+            <Slider Name="ContrastSlider" Minimum="-100" Maximum="100" Value="0" Style="{StaticResource MaterialDesignDiscreteSlider}" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" ValueChanged="ContrastSlider_Changed" HorizontalContentAlignment="Right" Width="188" HorizontalAlignment="Right"  />
+        </DockPanel>
+
+        <Button Content="Отмена" Name="CancelButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="107" Margin="10,158,0,0" Click="CancelButton_Click"/>
+
+    </Grid>
+</Window>

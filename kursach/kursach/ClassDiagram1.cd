@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="kursach.CanvasController" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAEgQAAAAAIAAAAAAAAAIIAAAAAAlAAAAAA=</HashCode>
+      <FileName>ImageProcessing\CanvasController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursach.EditWindowViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIEAAAABAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EditWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="kursach.Core.BoolToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\BoolToVisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="kursach.Core.CanvasStateWithPrimitives" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CanvasWithPrimitives.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursach.Core.Executor" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAADIkAKEBAAAAAQgLAiBoCIABAgCgACAEiAAAAog=</HashCode>
+      <FileName>Core\Executor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursach.Core.Utils" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAADAAAAAKkAAAAAUAAAAAgAAAAgABACAAEEgARI=</HashCode>
+      <FileName>Core\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursach.ImageProcessing.BitmapProcessor" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAEAAAIAAAAAAQCAAAAAMAAgAAgAAgCAAABAggAAAAA=</HashCode>
+      <FileName>ImageProcessing\BitmapProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursach.ImageProcessing.Steganography" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>ImageProcessing\Steganography.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageDetails" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAgAAIAgAAAAEQAAAAAAQAAAAAAAABAAAA=</HashCode>
+      <FileName>Models\ImageDetails.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
