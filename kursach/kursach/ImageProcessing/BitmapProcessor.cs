@@ -14,6 +14,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Color = System.Drawing.Color;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace kursach.ImageProcessing
 {
@@ -34,13 +35,13 @@ namespace kursach.ImageProcessing
         }
         public static unsafe BitmapSource ConvertToGrayscale(this Bitmap bmp)
         {
-            BitmapData bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, bmp.PixelFormat);
+            BitmapData bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             byte* scan0 = (byte*)bData.Scan0.ToPointer();
 
             for (int i = 0; i < bData.Height; ++i)
                 for (int j = 0; j < bData.Width; ++j)
                 {
-                    byte* data = scan0 + i * bData.Stride + j * 4;
+                    byte* data = scan0 + i * bData.Stride + j * 3;
                     byte avg = (byte)((*data + *(data + 1) + *(data + 2)) / 3);
                     *data = *(data + 1) = *(data + 2) = avg;
                 }
@@ -50,13 +51,13 @@ namespace kursach.ImageProcessing
 
         public static unsafe BitmapImage ReverseImage(this Bitmap bmp)
         {
-            BitmapData bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, bmp.PixelFormat);
+            BitmapData bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             byte* scan0 = (byte*)bData.Scan0.ToPointer();
 
             for (int i = 0; i < bData.Height; ++i)
                 for (int j = 0; j < bData.Width; ++j)
                 {
-                    byte* data = scan0 + i * bData.Stride + j * 4;
+                    byte* data = scan0 + i * bData.Stride + j * 3;
                     data[0] = (byte)(255 - data[0]);
                     data[1] = (byte)(255 - data[1]);
                     data[2] = (byte)(255 - data[2]);
@@ -67,7 +68,7 @@ namespace kursach.ImageProcessing
 
         public static Bitmap ToBitmap(this BitmapSource source)
         {
-            var bmp = new Bitmap(source.PixelWidth, source.PixelHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var bmp = new Bitmap(source.PixelWidth, source.PixelHeight, PixelFormat.Format32bppArgb);
             var data = bmp.LockBits(
                 new Rectangle(0, 0, bmp.Width, bmp.Height),
                 ImageLockMode.ReadWrite,
@@ -143,12 +144,12 @@ namespace kursach.ImageProcessing
         public static unsafe BitmapImage ChangeBrightness(this BitmapSource source, int newBrightness)
         {
             var bmp = source.ToBitmap();
-            var bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, bmp.PixelFormat);
+            var bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             var scan0 = (byte*)bData.Scan0.ToPointer();
             for (var i = 0; i < bData.Height; ++i)
                 for (var j = 0; j < bData.Width; ++j)
                 {
-                    var data = scan0 + i * bData.Stride + j * 4;
+                    var data = scan0 + i * bData.Stride + j * 3;
                     *data = (byte)ClampColor(*data + newBrightness);
                     *(data + 1) = (byte)ClampColor(*(data + 1) + newBrightness);
                     *(data + 2) = (byte)ClampColor(*(data + 2) + newBrightness);
@@ -179,12 +180,12 @@ namespace kursach.ImageProcessing
         {
 
             var bmp = source.ToBitmap();
-            var bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, bmp.PixelFormat);
+            var bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             var scan0 = (byte*)bData.Scan0.ToPointer();
             for (var i = 0; i < bData.Height; ++i)
                 for (var j = 0; j < bData.Width; ++j)
                 {
-                    var data = scan0 + i * bData.Stride + j * 4;
+                    var data = scan0 + i * bData.Stride + j * 3;
 
                     *data = (byte)ClampColor(*data + blue);
                     *(data + 1) = (byte)ClampColor(*(data + 1) + green);

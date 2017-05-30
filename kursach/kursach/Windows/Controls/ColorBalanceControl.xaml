@@ -13,18 +13,18 @@
 
         <DockPanel VerticalAlignment="Top" Margin="10,10,10,0">
             <Label Content="Красный" HorizontalAlignment="Left"  VerticalAlignment="Bottom"/>
-            <Slider Name="RedSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="0" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="RedSlider_changed" HorizontalContentAlignment="Right"  />
+            <Slider Name="RedSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="-255" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="RedSlider_changed" HorizontalContentAlignment="Right"  />
         </DockPanel>
 
         <DockPanel VerticalAlignment="Top" Margin="10,66,10,0">
             <Label Content="Зелёный" HorizontalAlignment="Left"  VerticalAlignment="Bottom"/>
-            <Slider Name="GreenSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="0" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="GreenSlider_Changed" Height="54" HorizontalContentAlignment="Right"  />
+            <Slider Name="GreenSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="-255" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="GreenSlider_Changed" Height="54" HorizontalContentAlignment="Right"  />
         </DockPanel>
 
 
         <DockPanel VerticalAlignment="Top" Margin="10,125,10,0">
             <Label Content="Синий" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="58"/>
-            <Slider Name="BlueSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="0" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="BlueSlider_Changed" Height="54" HorizontalContentAlignment="Right" Width="266"  />
+            <Slider Name="BlueSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="-255" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="BlueSlider_Changed" Height="54" HorizontalContentAlignment="Right" Width="266"  />
         </DockPanel>
         <Button Content="Отмена" Name="CancelButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="107" Margin="10,204,0,0" Click="CancelButton_Click"/>
     </Grid>
