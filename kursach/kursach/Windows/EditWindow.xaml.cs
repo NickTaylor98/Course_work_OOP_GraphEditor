@@ -152,9 +152,8 @@ namespace kursach
 
 		private void Contrast_Click(object sender, RoutedEventArgs e)
 		{
-			BrightnessContrastWindow controlPane = new BrightnessContrastWindow(this);
+			BrightnessContrastWindow controlPane = new BrightnessContrastWindow(this) {ResizeMode = ResizeMode.NoResize};
 			tempImage = Utils.GetBitmapFromCanvas(MainCanvas).ConvertToGrayscale();
-			controlPane.ResizeMode = ResizeMode.NoResize;
 			controlPane.ShowDialog();
 		}
 

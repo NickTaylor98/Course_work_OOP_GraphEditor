@@ -178,7 +178,6 @@ namespace kursach.ImageProcessing
         }
         public static unsafe BitmapImage ChangeColorBalance(this BitmapSource source, int red, int green, int blue)
         {
-
             var bmp = source.ToBitmap();
             var bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             var scan0 = (byte*)bData.Scan0.ToPointer();
@@ -191,7 +190,6 @@ namespace kursach.ImageProcessing
                     *(data + 1) = (byte)ClampColor(*(data + 1) + green);
                     *(data + 2) = (byte)ClampColor(*(data + 2) + red);
                 }
-
             bmp.UnlockBits(bData);
             return bmp.ToBitmapImage();
         }
@@ -237,7 +235,6 @@ namespace kursach.ImageProcessing
         {
             BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             double factor = 1.0 / 81.0;
-            int bias = 0;
             var filterMatrix = new double[,]
                 {
                     { 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -282,9 +279,9 @@ namespace kursach.ImageProcessing
                             red += (double)(pixelBuffer[calcOffset + 2]) * filterMatrix[filterY + filterOffset, filterX + filterOffset];
                         }
                     }
-                    resultBuffer[byteOffset] = (byte)ClampColor(factor * blue + bias);
-                    resultBuffer[byteOffset + 1] = (byte)ClampColor(factor * green + bias);
-                    resultBuffer[byteOffset + 2] = (byte)ClampColor(factor * red + bias);
+                    resultBuffer[byteOffset] = (byte)ClampColor(factor * blue);
+                    resultBuffer[byteOffset + 1] = (byte)ClampColor(factor * green);
+                    resultBuffer[byteOffset + 2] = (byte)ClampColor(factor * red);
                     resultBuffer[byteOffset + 3] = 255;
                 }
             }
@@ -314,16 +311,13 @@ namespace kursach.ImageProcessing
                 {
                     double red = 0.0, green = 0.0, blue = 0.0;
                     Color imageColor = image.GetPixel(x, y);
-
                     for (int filterX = 0; filterX < filterWidth; filterX++)
                     {
                         for (int filterY = 0; filterY < filterHeight; filterY++)
                         {
                             int imageX = (x - filterWidth / 2 + filterX + w) % w;
                             int imageY = (y - filterHeight / 2 + filterY + h) % h;
-
                             imageColor = image.GetPixel(imageX, imageY);
-
                             red += imageColor.R * filter[filterX, filterY];
                             green += imageColor.G * filter[filterX, filterY];
                             blue += imageColor.B * filter[filterX, filterY];

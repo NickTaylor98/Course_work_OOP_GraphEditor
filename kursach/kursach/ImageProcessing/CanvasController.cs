@@ -12,101 +12,95 @@ using System.Windows.Media.Imaging;
 
 namespace kursach
 {
-	public class CanvasController
-	{
-		private Canvas Canvas { get; set; }
-		private List<CanvasStateWithPrimitives> States { get; set; }
-		private int currentStateIndex = 0;
+    public class CanvasController
+    {
+        private Canvas Canvas { get; set; }
+        private List<CanvasStateWithPrimitives> States { get; set; }
+        private int currentStateIndex = 0;
 
-		public CanvasController(Canvas canvas)
-		{
-			Canvas = canvas;
-			States = new List<CanvasStateWithPrimitives>();
-		}
+        public CanvasController(Canvas canvas)
+        {
+            Canvas = canvas;
+            States = new List<CanvasStateWithPrimitives>();
+        }
 
-		public void UndoAllChanges(BitmapSource originalImage)
-		{
-			currentStateIndex = 0;
-			States.Clear();
-			UpdateCanvas(originalImage);
-		}
+        public void UndoAllChanges(BitmapSource originalImage)
+        {
+            currentStateIndex = 0;
+            States.Clear();
+            UpdateCanvas(originalImage);
+        }
 
-		public int GetNumberOfChanges()
-		{
-			return States.Count;
-		}
+        public int GetNumberOfChanges()
+        {
+            return States.Count;
+        }
 
-		public void UpdateCanvas(BitmapSource newImage)
-		{
-			if (States.Count != 0)
-				if (currentStateIndex != States.Count - 1)
-				{
-					States.RemoveRange(currentStateIndex, States.Count - currentStateIndex - 1);
-				} 
+        public void UpdateCanvas(BitmapSource newImage)
+        {
+            if (States.Count != 0 && currentStateIndex != States.Count - 1)
+                States.RemoveRange(currentStateIndex, States.Count - currentStateIndex - 1);
 
-			States.Add(new CanvasStateWithPrimitives(Canvas.Clone(), new List<UIElement>()));
-			currentStateIndex = States.Count - 1;
-			States[currentStateIndex].Canvas.Background = new ImageBrush { ImageSource = newImage };
-		    States[currentStateIndex].Canvas.Width = newImage.PixelWidth;
-		    States[currentStateIndex].Canvas.Height = newImage.PixelHeight;
-			SetupMainCanvas(States[currentStateIndex]);
-		}
+            States.Add(new CanvasStateWithPrimitives(Canvas.Clone(), new List<UIElement>()));
+            currentStateIndex = States.Count - 1;
+            States[currentStateIndex].Canvas.Background = new ImageBrush { ImageSource = newImage };
+            States[currentStateIndex].Canvas.Width = newImage.PixelWidth;
+            States[currentStateIndex].Canvas.Height = newImage.PixelHeight;
+            SetupMainCanvas(States[currentStateIndex]);
+        }
 
-		public void UpdateCanvas<T>(T newChild) where T : UIElement
-		{
-			if (States.Count != 0)
-				if (currentStateIndex != States.Count - 1)
-				{
-					States.RemoveRange(currentStateIndex + 1, States.Count - currentStateIndex - 1);
-				}
-			
-			States.Add(new CanvasStateWithPrimitives (Canvas.Clone(), States.Count> 0? States.Last().Primitives.CloneCollection() : new List<UIElement>()));
-			currentStateIndex = States.Count - 1;
-			States[currentStateIndex].Primitives.Add(newChild);
-			SetupMainCanvas(States[currentStateIndex]);
-		}
+        public void UpdateCanvas<T>(T newChild) where T : UIElement
+        {
+            if (States.Count != 0 && currentStateIndex != States.Count - 1)
+                States.RemoveRange(currentStateIndex + 1, States.Count - currentStateIndex - 1);
 
-		public void UndoChanges()
-		{
-			if (currentStateIndex != 0)
-			{
-				currentStateIndex--;
-				//States.Remove(States.Last());
-				SetupMainCanvas(States[currentStateIndex]);
-			}
-		}
+            States.Add(new CanvasStateWithPrimitives(Canvas.Clone(), States.Count > 0 ? States.Last().Primitives.CloneCollection() : new List<UIElement>()));
+            currentStateIndex = States.Count - 1;
+            States[currentStateIndex].Primitives.Add(newChild);
+            SetupMainCanvas(States[currentStateIndex]);
+        }
 
-		public void RedoChanges()
-		{
-			if (currentStateIndex + 1 < States.Count)
-			{
-				currentStateIndex++;
-				//States.Remove(States.Last());
-				SetupMainCanvas(States[currentStateIndex]);
-			}
-		}
+        public void UndoChanges()
+        {
+            if (currentStateIndex != 0)
+            {
+                currentStateIndex--;
+                //States.Remove(States.Last());
+                SetupMainCanvas(States[currentStateIndex]);
+            }
+        }
 
-		public Canvas GetActualCanvas()
-		{
-			return Canvas;
-		}
+        public void RedoChanges()
+        {
+            if (currentStateIndex + 1 < States.Count)
+            {
+                currentStateIndex++;
+                //States.Remove(States.Last());
+                SetupMainCanvas(States[currentStateIndex]);
+            }
+        }
 
-		private void SetupMainCanvas(CanvasStateWithPrimitives canvasState)
-		{
-			Canvas.Width = canvasState.Canvas.Width > Canvas.MaxWidth ? Canvas.MaxWidth : canvasState.Canvas.Width;
-			Canvas.Height = canvasState.Canvas.Height > Canvas.MaxHeight ? Canvas.MaxHeight : canvasState.Canvas.Height;
-			Canvas.Background = canvasState.Canvas.Background;
-			Canvas.Children.Clear();
-			for(int i = 0; i < canvasState.Primitives.Count; i++)
-			{
-				
-				Canvas.Children.Add(canvasState.Primitives[i]);
-			}
-		}
+        public Canvas GetActualCanvas()
+        {
+            return Canvas;
+        }
 
-		internal void UpdateCanvas(object toBitmap)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        private void SetupMainCanvas(CanvasStateWithPrimitives canvasState)
+        {
+            Canvas.Width = canvasState.Canvas.Width > Canvas.MaxWidth ? Canvas.MaxWidth : canvasState.Canvas.Width;
+            Canvas.Height = canvasState.Canvas.Height > Canvas.MaxHeight ? Canvas.MaxHeight : canvasState.Canvas.Height;
+            Canvas.Background = canvasState.Canvas.Background;
+            Canvas.Children.Clear();
+            for (int i = 0; i < canvasState.Primitives.Count; i++)
+            {
+
+                Canvas.Children.Add(canvasState.Primitives[i]);
+            }
+        }
+
+        internal void UpdateCanvas(object toBitmap)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

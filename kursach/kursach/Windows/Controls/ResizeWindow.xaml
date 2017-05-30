@@ -16,6 +16,6 @@
             <Label Content="Высота" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="90" VerticalContentAlignment="Center"/>
             <Slider Name="HeightSlider" Minimum="-200" Maximum="200" Value="0" Style="{StaticResource MaterialDesignDiscreteSlider}" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" HorizontalContentAlignment="Right" Width="188" HorizontalAlignment="Right"  />
         </DockPanel>
-        <Button x:Name="Change" Content="Изменить" HorizontalAlignment="Left" Margin="104,155,0,0" VerticalAlignment="Top" Width="99" Click="Change_Click"/>
+        <Button x:Name="Change" Content="Изменить" HorizontalAlignment="Left" Margin="115,155,0,0" VerticalAlignment="Top" Width="99" Click="Change_Click"/>
     </Grid>
 </Window>
