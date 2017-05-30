@@ -11,7 +11,6 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
-using Color = System.Drawing.Color;
 
 namespace kursach.Core
 {
@@ -51,7 +50,6 @@ namespace kursach.Core
 				bitmapimage.StreamSource = memory;
 				bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
 				bitmapimage.EndInit();
-
 				return bitmapimage;
 			}
 		}
@@ -90,8 +88,8 @@ namespace kursach.Core
 
 		public static Color GetPixelColor(Point point, ref Canvas canvas)
 		{
-			return GetBitmapFromCanvas(canvas).GetPixel((int)point.X, (int)point.Y);
-			//return Color.FromArgb(color.A, color.R, color.G, color.B);
+			var color = GetBitmapFromCanvas(canvas).GetPixel((int)point.X, (int)point.Y);
+			return Color.FromArgb(color.A, color.R, color.G, color.B);
 		}
 
 		public static double GetDistance(double X1, double Y1, double X2, double Y2)
@@ -119,17 +117,17 @@ namespace kursach.Core
 
 		public static Canvas Clone(this Canvas source)
 		{
-			var newCanvas = new Canvas();
-			newCanvas.Width = source.Width;
-			newCanvas.Height = source.Height;
-			newCanvas.Background = source.Background;
+			var newCanvas = new Canvas()
+			{
+			    Width = source.Width,
+                Height = source.Height,
+                Background = source.Background
+			};
 			newCanvas.Children.Clear();
 			for (int i = 0; i < source.Children.Count; i++)
 			{
 				newCanvas.Children.Add(source.Children[i].Clone());
-				//newCanvas.Children.Add(source.Children[i]);
 			}
-
 			return newCanvas;
 		}
 
@@ -143,7 +141,6 @@ namespace kursach.Core
 			string s = XamlWriter.Save(original);
 			StringReader stringReader = new StringReader(s);
 			XmlReader xmlReader = XmlTextReader.Create(stringReader, new XmlReaderSettings());
-
 			return (T)XamlReader.Load(xmlReader);
 		}
 
