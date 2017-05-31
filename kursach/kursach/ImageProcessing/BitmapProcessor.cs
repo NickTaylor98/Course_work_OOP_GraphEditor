@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using Color = System.Drawing.Color;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using Point = System.Drawing.Point;
+using ThicknessConverter = Xceed.Wpf.DataGrid.Converters.ThicknessConverter;
 
 namespace kursach.ImageProcessing
 {

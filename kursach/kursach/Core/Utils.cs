@@ -61,8 +61,7 @@ namespace kursach.Core
 
 		public static System.Drawing.Bitmap GetBitmapFromCanvas(Canvas canvas)
 		{
-
-			Transform transform = canvas.LayoutTransform;
+            Transform transform = canvas.LayoutTransform;
 			canvas.LayoutTransform = null;
 			Size size = new Size(canvas.Width, canvas.Height);
 			canvas.Measure(size);
@@ -84,6 +83,7 @@ namespace kursach.Core
 				result = new System.Drawing.Bitmap(outStream);
 			}
 			canvas.LayoutTransform = transform;
+		    //var c = result.GetPixel(0, 2);
 		    return result;
 		}
 

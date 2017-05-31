@@ -20,10 +20,12 @@ namespace kursach.Windows.Controls
     public partial class ResizeWindow : Window
     {
         NewWindow window;
+
         public ResizeWindow (NewWindow window)
         {
             this.window = window;
             InitializeComponent();
+            window.PrepareCanvasForFiltering();
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)

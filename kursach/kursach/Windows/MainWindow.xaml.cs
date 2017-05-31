@@ -52,18 +52,21 @@ namespace kursach
 
 			foreach (var file in files)
 			{
-				ImageDetails id = new ImageDetails()
-				{
-					Path = file,
-					FileName = Path.GetFileName(file),
-					Extension = Path.GetExtension(file)
-				};
+			    if (file.Length != 0)
+			    {
+			        ImageDetails id = new ImageDetails()
+			        {
+			            Path = file,
+			            FileName = Path.GetFileName(file),
+			            Extension = Path.GetExtension(file)
+			        };
 
-				BitmapImage img = new BitmapImage(new Uri(file));
-				id.Width = img.PixelWidth;
-				id.Height = img.PixelHeight;
+			        BitmapImage img = new BitmapImage(new Uri(file));
+			        id.Width = img.PixelWidth;
+			        id.Height = img.PixelHeight;
 
-				images.AddLast(id);
+			        images.AddLast(id);
+			    }
 			}
 
 			ImageList.ItemsSource = null;

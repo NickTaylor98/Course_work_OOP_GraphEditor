@@ -153,7 +153,7 @@ namespace kursach
         private void Contrast_Click(object sender, RoutedEventArgs e)
         {
             BrightnessContrastWindow controlPane = new BrightnessContrastWindow(this);
-           // tempImage = Utils.GetBitmapFromCanvas(MainCanvas).ConvertToGrayscale();
+            // tempImage = Utils.GetBitmapFromCanvas(MainCanvas).ConvertToGrayscale();
             controlPane.ShowDialog();
         }
 
@@ -169,7 +169,7 @@ namespace kursach
 
         private void Color_balance_Click(object sender, RoutedEventArgs e)
         {
-            ColorBalanceControl controlPane = new ColorBalanceControl(this) { ResizeMode = ResizeMode.NoResize };
+            ColorBalanceControl controlPane = new ColorBalanceControl(this);
             controlPane.ShowDialog();
         }
 
@@ -206,7 +206,7 @@ namespace kursach
 
         private void In_item_Click(object sender, RoutedEventArgs e)
         {
-            EncodeTextWindow controlPane = new EncodeTextWindow(this) { ResizeMode = ResizeMode.NoResize };
+            EncodeTextWindow controlPane = new EncodeTextWindow(this);
             controlPane.ShowDialog();
         }
 
@@ -227,7 +227,7 @@ namespace kursach
 
         private void Out_item_Click(object sender, RoutedEventArgs e)
         {
-            DecodeTextWindow controlPane = new DecodeTextWindow(this) { ResizeMode = ResizeMode.NoResize };
+            DecodeTextWindow controlPane = new DecodeTextWindow(this);
             controlPane.ShowDialog();
         }
 
@@ -499,14 +499,16 @@ namespace kursach
                 FileName = "Untitled",
                 DefaultExt = ".jpg"
             };
-            dlg.Filter = dlg.Filter = "Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
+            dlg.Filter = "Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
             if (dlg.ShowDialog().GetValueOrDefault())
             {
-                using (FileStream fs = new FileStream(dlg.FileName, FileMode.Create))
+               // using (FileStream fs = new FileStream(dlg.FileName, FileMode.Create))
                 {
                     try
                     {
-                        Utils.GetBitmapFromCanvas(MainCanvas).Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        //Utils.GetBitmapFromCanvas(MainCanvas).Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        var bimp = currentCanvasImage.ToBitmap().Clone();
+                        ((Bitmap)bimp).Save(dlg.FileName);
                         MessageBox.Show("Сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                         CanvasController.UndoAllChanges(new BitmapImage(new Uri(originalImageDetails.Path)));
                     }
@@ -593,7 +595,7 @@ namespace kursach
 
         private void ResizeMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            var window = new kursach.Windows.Controls.ResizeWindow(this);
+            var window = new Windows.Controls.ResizeWindow(this);
             window.Show();
         }
 
