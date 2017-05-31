@@ -38,6 +38,7 @@ namespace kursach
 
         public void UpdateCanvas(BitmapSource newImage)
         {
+            if (newImage == null) return;
             if (States.Count != 0 && currentStateIndex != States.Count - 1)
                 States.RemoveRange(currentStateIndex, States.Count - currentStateIndex - 1);
 

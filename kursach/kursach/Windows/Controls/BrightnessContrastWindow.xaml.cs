@@ -50,8 +50,6 @@ namespace kursach.Controls
 
 		private void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
-			BrightnessSlider.Value = 0;
-			ContrastSlider.Value = 0;
 			this.Close();
 		}
 	}
