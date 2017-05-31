@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace kursach.ImageProcessing
 {
@@ -25,6 +26,12 @@ namespace kursach.ImageProcessing
 	                b = c.B,
 	                a = c.A;
 	            char symbol = text[i_for_string++];
+	            if ( (symbol & 0xff00) >> 2 != 0)
+	            {
+	                MessageBox.Show("Cтеганография не должна содеражать русские символы", "Ошибка", MessageBoxButton.OK,
+	                    MessageBoxImage.Warning);
+	                return;
+	            }
 	            r &= 0xfc; g &= 0xfc; b &= 0xfc; a &= 0xfc;
 	            byte new_r = (byte)((symbol & 0xc0) >> 6),
 	                new_g = (byte)((symbol & 0x30) >> 4),
