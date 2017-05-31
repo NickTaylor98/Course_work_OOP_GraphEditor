@@ -8,6 +8,7 @@
         Icon="/Resources/logo.png"
         mc:Ignorable="d"
         Closed="WindowClosed"
+        ResizeMode="NoResize"
         Title="Баланс цвета" Height="287.241" Width="355.586">
     <Grid Background="White">
 

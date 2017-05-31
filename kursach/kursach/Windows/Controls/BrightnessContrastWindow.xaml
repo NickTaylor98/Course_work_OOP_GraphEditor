@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:kursach.Controls"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/logo.png"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Яркость / Контрасность" Height="237.31" Width="321.897" Closed="WindowClosed">
     <Grid Background="White">

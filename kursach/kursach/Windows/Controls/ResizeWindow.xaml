@@ -6,16 +6,17 @@
         xmlns:local="clr-namespace:kursach.Controls"
         Icon="/Resources/logo.png"
         mc:Ignorable="d"
-        Title="Изменение размера" Height="236.591" Width="346.897">
+        Title="Изменение размера" Height="236.591" Width="370.897" ResizeMode="NoResize">
     <Grid Background="White">
-        <DockPanel VerticalAlignment="Top" Margin="10,10,10,0">
-            <Label Content="Ширина" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="25" Width="55" VerticalContentAlignment="Center"/>
+        <Label Content="Новые размеры задаются относительно текущих размеров"/>
+            <DockPanel VerticalAlignment="Top" Margin="10,10,10,0">
+            <Label Content="Ширина (пксл)" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Height="25" Width="100" VerticalContentAlignment="Center"/>
             <Slider Name="WidthSlider"  TickPlacement="BottomRight" TickFrequency="20" Style="{StaticResource MaterialDesignDiscreteSlider}" IsSnapToTickEnabled="True" Minimum="-200" Maximum="200"  Value="0"  Width="190" HorizontalContentAlignment="Right" HorizontalAlignment="Right"/>
         </DockPanel>
         <DockPanel VerticalAlignment="Top" Margin="10,80,10,0">
-            <Label Content="Высота" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="90" VerticalContentAlignment="Center"/>
+            <Label Content="Высота (пксл)" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="100" VerticalContentAlignment="Center"/>
             <Slider Name="HeightSlider" Minimum="-200" Maximum="200" Value="0" Style="{StaticResource MaterialDesignDiscreteSlider}" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" HorizontalContentAlignment="Right" Width="188" HorizontalAlignment="Right"  />
         </DockPanel>
-        <Button x:Name="Change" Content="Изменить" HorizontalAlignment="Left" Margin="115,155,0,0" VerticalAlignment="Top" Width="99" Click="Change_Click"/>
+        <Button x:Name="Change" Content="Изменить" HorizontalAlignment="Left" Margin="133,155,0,0" VerticalAlignment="Top" Width="99" Click="Change_Click"/>
     </Grid>
 </Window>
