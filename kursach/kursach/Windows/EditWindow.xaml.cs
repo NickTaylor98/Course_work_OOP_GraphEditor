@@ -500,22 +500,27 @@ namespace kursach
 		        DefaultExt = ".jpg"
 		    };
 		    dlg.Filter = dlg.Filter = "Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
-
 			if (dlg.ShowDialog().GetValueOrDefault())
 			{
-				using (FileStream fs = new FileStream(dlg.FileName, FileMode.Create))
-				{
-					try
-					{
-						Utils.GetBitmapFromCanvas(MainCanvas).Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
-						MessageBox.Show("Сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-						CanvasController.UndoAllChanges(new BitmapImage(new Uri(originalImageDetails.Path)));
-					}
-					catch (Exception)
-					{
-						MessageBox.Show("Не удалось сохранить файл, попробуйте еще раз.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-					}
-				}
+                Bitmap bitm = new Bitmap(Utils.GetBitmapFromCanvas(MainCanvas));
+			    MessageBox.Show(bitm.GetPixel(0, 1).ToArgb() + "");
+                bitm.Save(dlg.FileName);
+			    MessageBox.Show("Сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+			   	CanvasController.UndoAllChanges(new BitmapImage(new Uri(originalImageDetails.Path)));
+                bitm.Dispose();
+				//using (FileStream fs = new FileStream(dlg.FileName, FileMode.Create))
+				//{
+				//	try
+				//	{
+				//		Utils.GetBitmapFromCanvas(MainCanvas).Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+				//		MessageBox.Show("Сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+				//		CanvasController.UndoAllChanges(new BitmapImage(new Uri(originalImageDetails.Path)));
+				//	}
+				//	catch (Exception)
+				//	{
+				//		MessageBox.Show("Не удалось сохранить файл, попробуйте еще раз.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+				//	}
+				//}
 			}
 			else
 			{

@@ -41,6 +41,7 @@ namespace kursach
 		    {
 		        if (openFileDialog.FileName == "") return;
 		        ViewedPhoto.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+		        Edit.IsEnabled = true;
 		    }
 		    else return;
 			var directory = new FileInfo(openFileDialog.FileName).Directory;
@@ -67,7 +68,7 @@ namespace kursach
 
 			ImageList.ItemsSource = null;
 			ImageList.ItemsSource = images;
-			selectedImageIndex = images.TakeWhile(i => !(i.Path == openFileDialog.FileName)).Count();
+			selectedImageIndex = images.TakeWhile(i => i.Path != openFileDialog.FileName).Count();
 			ImageList.SelectedIndex = selectedImageIndex;
 		}
 
@@ -151,8 +152,6 @@ namespace kursach
 
 		private void Edit_Click(object sender, RoutedEventArgs ar)
 		{
-			if (images.Count == 0) return;
-
 			NewWindow newW = new NewWindow(images.ElementAt(selectedImageIndex));
 			newW.ShowDialog();
 		}

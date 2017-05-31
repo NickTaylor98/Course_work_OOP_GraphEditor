@@ -61,6 +61,7 @@ namespace kursach.Core
 
 		public static System.Drawing.Bitmap GetBitmapFromCanvas(Canvas canvas)
 		{
+
 			Transform transform = canvas.LayoutTransform;
 			canvas.LayoutTransform = null;
 			Size size = new Size(canvas.Width, canvas.Height);
@@ -83,7 +84,7 @@ namespace kursach.Core
 				result = new System.Drawing.Bitmap(outStream);
 			}
 			canvas.LayoutTransform = transform;
-			return result;
+		    return result;
 		}
 
 		public static Color GetPixelColor(Point point, ref Canvas canvas)

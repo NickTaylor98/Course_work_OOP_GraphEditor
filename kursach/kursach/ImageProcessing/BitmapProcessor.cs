@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Color = System.Drawing.Color;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
+using Point = System.Drawing.Point;
 
 namespace kursach.ImageProcessing
 {
@@ -68,13 +70,15 @@ namespace kursach.ImageProcessing
 
         public static Bitmap ToBitmap(this BitmapSource source)
         {
+
             var bmp = new Bitmap(source.PixelWidth, source.PixelHeight, PixelFormat.Format32bppArgb);
             var data = bmp.LockBits(
                 new Rectangle(0, 0, bmp.Width, bmp.Height),
                 ImageLockMode.ReadWrite,
-                bmp.PixelFormat);
+                PixelFormat.Format32bppArgb);
             source.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
             bmp.UnlockBits(data);
+          //  MessageBox.Show(bmp.GetPixel(0, 1).ToArgb() + "");
             return bmp;
         }
 
@@ -251,9 +255,7 @@ namespace kursach.ImageProcessing
             byte[] resultBuffer = new byte[sourceData.Stride * sourceData.Height];
             Marshal.Copy(sourceData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
             sourceBitmap.UnlockBits(sourceData);
-            double blue = 0.0;
-            double green = 0.0;
-            double red = 0.0;
+            double blue = 0.0, green = 0.0, red = 0.0;
             int filterWidth = filterMatrix.GetLength(1);
             int filterHeight = filterMatrix.GetLength(0);
             int filterOffset = (filterWidth - 1) / 2;
@@ -263,9 +265,7 @@ namespace kursach.ImageProcessing
             {
                 for (int offsetX = filterOffset; offsetX < sourceBitmap.Width - filterOffset; offsetX++)
                 {
-                    blue = 0;
-                    green = 0;
-                    red = 0;
+                    blue = green = red = 0;
                     byteOffset = offsetY * sourceData.Stride + offsetX * 4;
 
                     for (int filterY = -filterOffset; filterY <= filterOffset; filterY++)

@@ -93,7 +93,6 @@ namespace kursach
             Canvas.Children.Clear();
             for (int i = 0; i < canvasState.Primitives.Count; i++)
             {
-
                 Canvas.Children.Add(canvasState.Primitives[i]);
             }
         }
