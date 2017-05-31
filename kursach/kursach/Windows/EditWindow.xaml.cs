@@ -502,20 +502,28 @@ namespace kursach
             dlg.Filter = "Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
             if (dlg.ShowDialog().GetValueOrDefault())
             {
-               // using (FileStream fs = new FileStream(dlg.FileName, FileMode.Create))
+
+                try
                 {
-                    try
+                    if (CanvasController.States[CanvasController.States.Count-1].Primitives.Count != 0)
                     {
-                        //Utils.GetBitmapFromCanvas(MainCanvas).Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        using (FileStream fs = new FileStream(dlg.FileName, FileMode.Create))
+                        {
+                            Utils.GetBitmapFromCanvas(MainCanvas).Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        }
+                    }
+                    else
+                    {
                         var bimp = currentCanvasImage.ToBitmap().Clone();
                         ((Bitmap)bimp).Save(dlg.FileName);
-                        MessageBox.Show("Сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                        CanvasController.UndoAllChanges(new BitmapImage(new Uri(originalImageDetails.Path)));
                     }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Не удалось сохранить файл, попробуйте еще раз.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
+                    MessageBox.Show("Сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    CanvasController.UndoAllChanges(new BitmapImage(new Uri(originalImageDetails.Path)));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Не удалось сохранить файл, попробуйте еще раз.", "Ошибка", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
                 }
             }
             else
@@ -607,6 +615,12 @@ namespace kursach
                 MainCanvas.Children.Clear();
                 CanvasController.UpdateCanvas(currentCanvasImage);
             });
+        }
+
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+            var newW = new HelpWindow();
+            newW.ShowDialog();
         }
     }
 }

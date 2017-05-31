@@ -15,7 +15,7 @@ namespace kursach
     public class CanvasController
     {
         private Canvas Canvas { get; set; }
-        private List<CanvasStateWithPrimitives> States { get; set; }
+        public List<CanvasStateWithPrimitives> States { get; set; }
         private int currentStateIndex = 0;
 
         public CanvasController(Canvas canvas)
