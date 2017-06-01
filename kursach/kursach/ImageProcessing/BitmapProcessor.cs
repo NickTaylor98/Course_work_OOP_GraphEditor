@@ -71,7 +71,6 @@ namespace kursach.ImageProcessing
 
         public static Bitmap ToBitmap(this BitmapSource source)
         {
-
             var bmp = new Bitmap(source.PixelWidth, source.PixelHeight, PixelFormat.Format32bppArgb);
             var data = bmp.LockBits(
                 new Rectangle(0, 0, bmp.Width, bmp.Height),
@@ -79,7 +78,6 @@ namespace kursach.ImageProcessing
                 PixelFormat.Format32bppArgb);
             source.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
             bmp.UnlockBits(data);
-          //  MessageBox.Show(bmp.GetPixel(0, 1).ToArgb() + "");
             return bmp;
         }
 
@@ -118,17 +116,11 @@ namespace kursach.ImageProcessing
         {
             width += imageBitmap.Width;
             height += imageBitmap.Height;
-            if (width < 0 || height < 0)
-            {
-                MessageBox.Show("Введите другие размеры");
-                return imageBitmap.ToBitmapImage();
-            }
-            Bitmap bitmap = new Bitmap(width, height);
-            using (Graphics graphics = Graphics.FromImage(bitmap))
-            {
-                graphics.DrawImage(imageBitmap, 0, 0, width, height);
-            }
-            return bitmap.ToBitmapImage();
+            Bitmap new_image = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage((Image)new_image);
+            g.InterpolationMode = InterpolationMode.High;
+            g.DrawImage(imageBitmap, 0, 0, width, height);
+            return new_image.ToBitmapImage();
         }
         public static unsafe BitmapImage ChangeSepia(this Bitmap bmp)
         {
@@ -198,6 +190,22 @@ namespace kursach.ImageProcessing
             bmp.UnlockBits(bData);
             return bmp.ToBitmapImage();
         }
+        public static unsafe BitmapImage Dithering(this Bitmap bmp)
+        {
+            BitmapData bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            byte* scan0 = (byte*)bData.Scan0.ToPointer();
+            byte gray;
+            for (int i = 0; i < bData.Height; ++i)
+                for (int j = 0; j < bData.Width; ++j)
+                {
+                    byte* data = scan0 + i * bData.Stride + j * 3;
+                    gray = (byte)(0.299 * *(data + 2) + 0.587 * *(data + 1) + 0.114 * *data);
+                    if (gray < 128) *data = *(data + 1) = *(data + 2) = 0;
+                    else *data = *(data + 1) = *(data + 2) = 255;
+                }
+            bmp.UnlockBits(bData);
+            return bmp.ToBitmapImage();
+        }
         public static BitmapSource EncodeText(this Bitmap bPic, string text)
         {
             Steganography.TextToImage(bPic, text);
@@ -238,6 +246,8 @@ namespace kursach.ImageProcessing
         }
         public static BitmapImage ApplyBlur(this Bitmap sourceBitmap)
         {
+            BitmapImage image = new BitmapImage();
+
             BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             double factor = 1.0 / 81.0;
             var filterMatrix = new double[,]
@@ -256,7 +266,7 @@ namespace kursach.ImageProcessing
             byte[] resultBuffer = new byte[sourceData.Stride * sourceData.Height];
             Marshal.Copy(sourceData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
             sourceBitmap.UnlockBits(sourceData);
-            double blue = 0.0, green = 0.0, red = 0.0;
+            double blue = 0.0d, green = 0.0d, red = 0.0d;
             int filterWidth = filterMatrix.GetLength(1);
             int filterHeight = filterMatrix.GetLength(0);
             int filterOffset = (filterWidth - 1) / 2;
@@ -274,7 +284,6 @@ namespace kursach.ImageProcessing
                         for (int filterX = -filterOffset; filterX <= filterOffset; filterX++)
                         {
                             calcOffset = byteOffset + (filterX * 4) + (filterY * sourceData.Stride);
-
                             blue += (double)(pixelBuffer[calcOffset]) * filterMatrix[filterY + filterOffset, filterX + filterOffset];
                             green += (double)(pixelBuffer[calcOffset + 1]) * filterMatrix[filterY + filterOffset, filterX + filterOffset];
                             red += (double)(pixelBuffer[calcOffset + 2]) * filterMatrix[filterY + filterOffset, filterX + filterOffset];
@@ -310,7 +319,7 @@ namespace kursach.ImageProcessing
             {
                 for (int y = 0; y < h; ++y)
                 {
-                    double red = 0.0, green = 0.0, blue = 0.0;
+                    double red = 0.0d, green = 0.0d, blue = 0.0d;
                     Color imageColor = image.GetPixel(x, y);
                     for (int filterX = 0; filterX < filterWidth; filterX++)
                     {

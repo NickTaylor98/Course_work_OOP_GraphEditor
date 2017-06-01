@@ -106,15 +106,15 @@ namespace kursach.Core
 			return Utils.GetBitmapFromCanvas(canvas).GetPixel((int)point.X, (int)point.Y);
 		}
 
-		public static string ComposePositionLabelContent(Point position)
-		{
-			return "Позиция курсора: x:" + Math.Round(position.X, 2) + ", y:" + Math.Round(position.Y, 2);
-		}
+		//public static string ComposePositionLabelContent(Point position)
+		//{
+		//	return "Позиция курсора: x:" + Math.Round(position.X, 2) + ", y:" + Math.Round(position.Y, 2);
+		//}
 
-		public static string ComposeCanvaSizeLabelContent(double canvasWidth, double canvasHeight)
-		{
-			return "Размер изображения: " + canvasWidth + "x" + canvasHeight;
-		}
+		//public static string ComposeCanvaSizeLabelContent(double canvasWidth, double canvasHeight)
+		//{
+		//	return "Размер изображения: " + canvasWidth + "x" + canvasHeight;
+		//}
 
 		public static Canvas Clone(this Canvas source)
 		{

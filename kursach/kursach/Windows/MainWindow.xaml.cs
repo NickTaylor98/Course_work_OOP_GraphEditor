@@ -47,9 +47,7 @@ namespace kursach
 			var directory = new FileInfo(openFileDialog.FileName).Directory;
 			string[] supportedExtensions = new[] { ".bmp", ".jpeg", ".jpg", ".png", ".tiff" };
 			var files = Directory.GetFiles(directory.FullName).Select(f => new FileInfo(f)).Where(f => supportedExtensions.Contains(f.Extension)).Select(f => f.FullName);
-
 			images.Clear();
-
 			foreach (var file in files)
 			{
 			    if (file.Length != 0)
@@ -60,15 +58,12 @@ namespace kursach
 			            FileName = Path.GetFileName(file),
 			            Extension = Path.GetExtension(file)
 			        };
-
 			        BitmapImage img = new BitmapImage(new Uri(file));
 			        id.Width = img.PixelWidth;
 			        id.Height = img.PixelHeight;
-
 			        images.AddLast(id);
 			    }
 			}
-
 			ImageList.ItemsSource = null;
 			ImageList.ItemsSource = images;
 			selectedImageIndex = images.TakeWhile(i => i.Path != openFileDialog.FileName).Count();

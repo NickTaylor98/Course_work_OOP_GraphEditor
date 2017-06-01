@@ -64,12 +64,12 @@
                            TextWrapping="Wrap"/>
 
 
-                <Image Source="/Resources/w.png" Height="43" Width="47"/>
+                <Image Height="43" Width="47"/>
                 <TextBlock Text="Приблизить изображение" />
                 <TextBlock Opacity=".68" Text="При нажатии на кнопку W, можно приблизить изображение."
                            TextWrapping="Wrap"/>
 
-                <Image Source="/Resources/q.png" Height="43" Width="47"/>
+                <Image Height="43" Width="47"/>
                 <TextBlock Text="Отдалить изображение" />
                 <TextBlock Opacity=".68" Text="При нажатии на кнопку Q, можно отдалить изображение."
                            TextWrapping="Wrap"/>

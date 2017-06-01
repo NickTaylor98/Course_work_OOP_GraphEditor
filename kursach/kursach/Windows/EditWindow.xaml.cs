@@ -622,5 +622,15 @@ namespace kursach
             var newW = new HelpWindow();
             newW.ShowDialog();
         }
+
+        private void DitheringItem_Click(object sender, RoutedEventArgs e)
+        {
+            InvokeActionWithBusyIndicator(() =>
+            {
+                currentCanvasImage = Utils.GetBitmapFromCanvas(MainCanvas).Dithering();
+                MainCanvas.Children.Clear();
+                CanvasController.UpdateCanvas(currentCanvasImage);
+            });
+        }
     }
 }

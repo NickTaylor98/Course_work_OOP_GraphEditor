@@ -75,6 +75,7 @@
                 <MenuItem x:Name="Filter_item" Header="Фильтр">
                     <MenuItem x:Name="Illumination_item" Header="Нормализация освещения" Click="Illumination_item_Click" />
                     <MenuItem x:Name="SharpenItem" Header="Резкость" Click="SharpenItem_Click" />
+                    <MenuItem x:Name="DitheringItem" Header="Дизеринг" Click="DitheringItem_Click" />
                     <MenuItem x:Name="BlurItem" Header="Размытие" Click="BlurItem_Click" />
                     <MenuItem x:Name="Sepia" Header="Сепия" Click="Sepia_Click"/>
                 </MenuItem>
