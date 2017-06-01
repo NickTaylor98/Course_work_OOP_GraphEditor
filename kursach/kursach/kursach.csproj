@@ -123,6 +123,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Controls\SolarizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Controls\Stegonography\DecodeTextWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +152,9 @@
     </Compile>
     <Compile Include="Windows\Controls\ColorBalanceControl.xaml.cs">
       <DependentUpon>ColorBalanceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Controls\SolarizationWindow.xaml.cs">
+      <DependentUpon>SolarizationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Controls\Stegonography\DecodeTextWindow.xaml.cs">
       <DependentUpon>DecodeTextWindow.xaml</DependentUpon>

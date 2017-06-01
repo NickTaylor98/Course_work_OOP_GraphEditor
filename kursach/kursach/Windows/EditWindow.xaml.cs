@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Threading;
+using kursach.Windows.Controls;
 
 namespace kursach
 {
@@ -631,6 +632,18 @@ namespace kursach
                 MainCanvas.Children.Clear();
                 CanvasController.UpdateCanvas(currentCanvasImage);
             });
+        }
+
+        public void ChangeSolarization(int red, int green, int blue)
+        {
+            tempImage = currentCanvasImage.ChangeSolarization(red, green, blue);
+            MainCanvas.Background = new ImageBrush { ImageSource = tempImage };
+        }
+
+        private void SolarizationItem_Click(object sender, RoutedEventArgs e)
+        {
+            SolarizationWindow controlPane = new SolarizationWindow(this);
+            controlPane.ShowDialog();
         }
     }
 }

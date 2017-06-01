@@ -1,0 +1,32 @@
+﻿<Window x:Class="kursach.Windows.Controls.SolarizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kursach.Controls"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/logo.png"
+        mc:Ignorable="d"
+        Closed="WindowClosed"
+        ResizeMode="NoResize"
+        Title="Соляризация" Height="287.241" Width="355.586">
+    <Grid Background="White">
+
+        <DockPanel VerticalAlignment="Top" Margin="10,10,10,0">
+            <Label Content="Красный" HorizontalAlignment="Left"  VerticalAlignment="Bottom"/>
+            <Slider Name="RedSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="0" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="RedSlider_changed" HorizontalContentAlignment="Right"  />
+        </DockPanel>
+
+        <DockPanel VerticalAlignment="Top" Margin="10,66,10,0">
+            <Label Content="Зелёный" HorizontalAlignment="Left"  VerticalAlignment="Bottom"/>
+            <Slider Name="GreenSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="0" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="GreenSlider_Changed" Height="54" HorizontalContentAlignment="Right"  />
+        </DockPanel>
+
+
+        <DockPanel VerticalAlignment="Top" Margin="10,125,10,0">
+            <Label Content="Синий" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="58"/>
+            <Slider Name="BlueSlider" Style="{StaticResource MaterialDesignDiscreteSlider}" Minimum="0" Maximum="255" Value="0" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" ValueChanged="BlueSlider_Changed" Height="54" HorizontalContentAlignment="Right" Width="266"  />
+        </DockPanel>
+        <Button Content="Отмена" Name="CancelButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="107" Margin="10,204,0,0" Click="CancelButton_Click"/>
+    </Grid>
+</Window>

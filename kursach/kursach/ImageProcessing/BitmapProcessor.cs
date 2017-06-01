@@ -190,6 +190,22 @@ namespace kursach.ImageProcessing
             bmp.UnlockBits(bData);
             return bmp.ToBitmapImage();
         }
+        public static unsafe BitmapImage ChangeSolarization(this BitmapSource source, int r, int g, int b)
+        {
+            var bmp = source.ToBitmap();
+            BitmapData bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            byte* scan0 = (byte*)bData.Scan0.ToPointer(); //Pointer to first byte of image
+            for (int i = 0; i < bData.Height; ++i)
+                for (int j = 0; j < bData.Width; ++j)
+                {
+                    byte* data = scan0 + i * bData.Stride + j * 3;
+                    if (*data < b) *data = (byte)(255 - *data);
+                    if (*(data + 1) < g) *(data + 1) = (byte)(255 - *(data+1));
+                    if (*(data + 2) < r) *(data + 2) = (byte)(255 - *(data+2));
+                }
+            bmp.UnlockBits(bData);
+            return bmp.ToBitmapImage();
+        }
         public static unsafe BitmapImage Dithering(this Bitmap bmp)
         {
             BitmapData bData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);

@@ -66,6 +66,7 @@
                     <MenuItem x:Name="Contrast" Header="Яркость/Контрастность" Click="Contrast_Click" />
                     <MenuItem x:Name="Color_balance" Header="Цветовой баланс" Click="Color_balance_Click" />
                     <MenuItem x:Name="Inversion" Header="Инверсия" Click="Inversion_Click" />
+                    <MenuItem x:Name="SolarizationItem" Header="Соляризация" Click="SolarizationItem_Click" />
                     <MenuItem x:Name="Black_wight" Header="Черно-белое" Click="Black_wight_Click" />
                 </MenuItem>
                 <MenuItem x:Name="Stenograph_item" Header="Стеганография">
