@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Threading;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using kursach.Windows.Controls;
 
@@ -228,7 +229,7 @@ namespace kursach
 
         private void Out_item_Click(object sender, RoutedEventArgs e)
         {
-            DecodeTextWindow controlPane = new DecodeTextWindow(this);
+            DecodeTextWindow controlPane = new DecodeTextWindow(this.DecodeText());
             controlPane.ShowDialog();
         }
 
@@ -518,8 +519,10 @@ namespace kursach
                     }
                     else
                     {
-                        var bimp = currentCanvasImage.ToBitmap().Clone();
-                        ((Bitmap)bimp).Save(dlg.FileName);
+                        using (Bitmap bimp = (Bitmap)currentCanvasImage.ToBitmap().Clone())
+                        {
+                            bimp.Save(dlg.FileName);
+                        }
                     }
                     MessageBox.Show("Сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     CanvasController.UndoAllChanges(new BitmapImage(new Uri(originalImageDetails.Path)));
@@ -530,11 +533,7 @@ namespace kursach
                         MessageBoxImage.Warning);
                 }
             }
-            else
-            {
-                return false;
-            }
-
+            else return false;
             return true;
         }
 
@@ -542,12 +541,14 @@ namespace kursach
         {
             InvokeActionWithBusyIndicator(() =>
             {
-                var canvas = Utils.GetBitmapFromCanvas(MainCanvas);
-                canvas.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                currentCanvasImage = canvas.ToBitmapImage();
-                MainCanvas.Width = canvas.Width;
-                MainCanvas.Height = canvas.Height;
-                CanvasController.UpdateCanvas(currentCanvasImage);
+                using (var canvas = Utils.GetBitmapFromCanvas(MainCanvas))
+                {
+                    canvas.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    currentCanvasImage = canvas.ToBitmapImage();
+                    MainCanvas.Width = canvas.Width;
+                    MainCanvas.Height = canvas.Height;
+                    CanvasController.UpdateCanvas(currentCanvasImage);
+                }
             });
         }
 
@@ -555,12 +556,14 @@ namespace kursach
         {
             InvokeActionWithBusyIndicator(() =>
             {
-                var canvas = Utils.GetBitmapFromCanvas(MainCanvas);
-                canvas.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                currentCanvasImage = canvas.ToBitmapImage();
-                MainCanvas.Width = canvas.Width;
-                MainCanvas.Height = canvas.Height;
-                CanvasController.UpdateCanvas(currentCanvasImage);
+                using (var canvas = Utils.GetBitmapFromCanvas(MainCanvas))
+                {
+                    canvas.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    currentCanvasImage = canvas.ToBitmapImage();
+                    MainCanvas.Width = canvas.Width;
+                    MainCanvas.Height = canvas.Height;
+                    CanvasController.UpdateCanvas(currentCanvasImage);
+                }
             });
         }
 
@@ -607,7 +610,7 @@ namespace kursach
 
         private void ResizeMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            var window = new Windows.Controls.ResizeWindow(this);
+            var window = new ResizeWindow(this);
             window.Show();
         }
 

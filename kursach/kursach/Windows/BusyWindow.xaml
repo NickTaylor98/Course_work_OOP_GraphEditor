@@ -20,8 +20,5 @@
                          IsIndeterminate="True" Height="Auto" Width="Auto"                         
                       />
         </materialDesign:Card>
-        <!--<ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"                     
-                     Value="0"
-                     IsIndeterminate="True" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="100" Width="100"/>-->
     </Grid>
 </Window>

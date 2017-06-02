@@ -19,10 +19,10 @@ namespace kursach.Controls
 	/// </summary>
 	public partial class DecodeTextWindow : Window
 	{
-		public DecodeTextWindow(NewWindow controlledWindow)
+		public DecodeTextWindow(string text)
 		{
 			InitializeComponent();
-			ResultText.Text = controlledWindow.DecodeText();
+		    ResultText.Text = text;
 		}
 	}
 }

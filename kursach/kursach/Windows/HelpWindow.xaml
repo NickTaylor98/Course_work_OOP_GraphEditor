@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kursach"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         Icon="/Resources/logo.png"
         WindowStartupLocation="CenterScreen"
         Title="Справка" Height="auto" Width="480.69">
