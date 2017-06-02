@@ -33,7 +33,7 @@ namespace kursach
         private BitmapSource currentCanvasImage;
         private BitmapSource tempImage;
         private ImageDetails originalImageDetails;
-        const double ScaleRate = 1.1;
+        const double ScaleRate = 1.1d;
         private CanvasController CanvasController { get; set; }
         private EditWindowViewModel viewModel;
 
@@ -44,6 +44,7 @@ namespace kursach
             InitializeComponent();
             viewModel = new EditWindowViewModel();
             this.DataContext = viewModel;
+            Utils.Tool = Utils.Tools.Arrow;
             this.originalImageDetails = originalImageDetails;
             var image = new BitmapImage(new Uri(originalImageDetails.Path));
             this.originalImage = image;
@@ -154,7 +155,6 @@ namespace kursach
         private void Contrast_Click(object sender, RoutedEventArgs e)
         {
             BrightnessContrastWindow controlPane = new BrightnessContrastWindow(this);
-            // tempImage = Utils.GetBitmapFromCanvas(MainCanvas).ConvertToGrayscale();
             controlPane.ShowDialog();
         }
 
@@ -257,26 +257,29 @@ namespace kursach
             //Info_panel.CanvasSize = Utils.ComposeCanvaSizeLabelContent(MainCanvas.Width, MainCanvas.Height);
         }
 
+        #region Zoom
         private void canvas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.W)
+            switch (e.Key)
             {
-                Utils.executor.ZoomIn(ref CanvasScaleTransform, ref MainCanvas);
-            }
-            if (e.Key == Key.Q)
-            {
-                Utils.executor.ZoomOut(ref CanvasScaleTransform, ref MainCanvas);
-            }
-        }
 
+                case Key.W:
+                    Utils.executor.ZoomIn(ref CanvasScaleTransform, ref MainCanvas);
+                    break;
+                case Key.Q:
+                    Utils.executor.ZoomOut(ref CanvasScaleTransform, ref MainCanvas);
+                    break;
+            }
+
+        }
+        #endregion
+        #region CanvasProcess(MouseUp, MouseDown, etc.)
         private void canvas_MouseEnter(object sender, MouseEventArgs e)
         {
             if (Utils.Tool != Utils.Tools.Arrow)
                 Mouse.OverrideCursor = Cursors.Cross;
             MainCanvas.Focus();
-            //Info_panel.Position = Utils.ComposePositionLabelContent(e.GetPosition(MainCanvas));
         }
-
         private void canvas_MouseLeave(object sender, MouseEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Arrow;
@@ -411,7 +414,7 @@ namespace kursach
                 }
             }
         }
-
+        #endregion
         #endregion
 
         #region Toolbar events
@@ -506,7 +509,7 @@ namespace kursach
 
                 try
                 {
-                    if (CanvasController.States[CanvasController.States.Count-1].Primitives.Count != 0)
+                    if (CanvasController.States[CanvasController.States.Count - 1].Primitives.Count != 0)
                     {
                         using (FileStream fs = new FileStream(dlg.FileName, FileMode.Create))
                         {

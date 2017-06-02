@@ -18,6 +18,23 @@
         ResizeMode="NoResize"
         Height="688.559"
         Width="1202.648" Closing="Window_Closing">
+    <Window.CommandBindings>
+        <CommandBinding Command="SaveAs"
+                        Executed="Save_as_item_Click">
+        </CommandBinding>
+        <CommandBinding Command="Close"
+                        Executed="Quit_item_Click">
+        </CommandBinding>
+        <CommandBinding Command="Undo"
+                        Executed="UndoItem_Click">
+        </CommandBinding>
+        <CommandBinding Command="Redo"
+                        Executed="RedoItem_Click">
+        </CommandBinding>
+        <CommandBinding Command="Help"
+                        Executed="Help_Click">
+        </CommandBinding>
+    </Window.CommandBindings>
     <Window.Resources>
         <Style
             TargetType="Button"
@@ -44,14 +61,14 @@
     <DockPanel>
         <Menu x:Name="menuBar" DockPanel.Dock="Top" Width="Auto" Height="35" VerticalAlignment="Top" Margin="0" Background="#FF0097A7" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="#DDFFFFFF">
             <MenuItem Header="ФАЙЛ" Height="35" >
-                <MenuItem x:Name="Save_as_item" Header="Сохранить" Click="Save_as_item_Click" />
+                <MenuItem x:Name="Save_as_item" Header="Сохранить" Command="SaveAs"/>
                 <Separator/>
-                <MenuItem x:Name="Quit_item" Header="Выход" Click="Quit_item_Click"  />
+                <MenuItem x:Name="Quit_item" Header="Выход" Command="Close" />
             </MenuItem>
 
             <MenuItem Header="РЕДАКТИРОВАНИЕ" Height="35">
-                <MenuItem x:Name="UndoItem" Header="Шаг назад" Click="UndoItem_Click" />
-                <MenuItem x:Name="RedoItem" Header="Шаг вперед" Click="RedoItem_Click"/>
+                <MenuItem x:Name="UndoItem" Header="Шаг назад" Command="Undo" />
+                <MenuItem x:Name="RedoItem" Header="Шаг вперед" Command="Redo"/>
                 <Separator/>
                 <MenuItem x:Name="DiscardChangesItem" Header="Отменить изменения" Click="DiscardChangesItem_Click"/>
             </MenuItem>
@@ -80,9 +97,9 @@
                     <MenuItem x:Name="BlurItem" Header="Размытие" Click="BlurItem_Click" />
                     <MenuItem x:Name="Sepia" Header="Сепия" Click="Sepia_Click"/>
                 </MenuItem>
-                
+
             </MenuItem>
-            <MenuItem Header="ПОМОЩЬ" Height="35" Click="Help_Click" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0" RenderTransformOrigin="0.5,0.5"/>
+            <MenuItem Header="ПОМОЩЬ" Height="35" Command="Help" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0" RenderTransformOrigin="0.5,0.5"/>
         </Menu>
         <Grid>
 
@@ -181,14 +198,16 @@
                 </ToolBarPanel>
             </Grid>
 
-            <Viewbox Name="CanvasViewBox" Width="Auto" Height="Auto" Grid.ColumnSpan="1" Margin="10,10,130,10" Grid.RowSpan="2" Grid.Column="1">
+            <Viewbox Name="CanvasViewBox" Width="Auto" Height="Auto" Grid.ColumnSpan="1" Margin="10,10,130,10"
+                     Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
                 <Canvas Name="MainCanvas" materialDesign:ShadowAssist.ShadowDepth="Depth3" ClipToBounds="True" Focusable="True" HorizontalAlignment="Left" VerticalAlignment="Top" SizeChanged="canvas_SizeChanged" PreviewKeyDown="canvas_KeyDown"  MouseEnter="canvas_MouseEnter" MouseLeave="canvas_MouseLeave" PreviewMouseDown="Canvas_MouseDown" PreviewMouseMove="canvas_MouseMove" PreviewMouseUp="Canvas_MouseUp" x:FieldModifier="private" Height="643" Width="1194">
                     <Canvas.RenderTransform>
                         <ScaleTransform x:Name="CanvasScaleTransform"/>
                     </Canvas.RenderTransform>
                 </Canvas>
             </Viewbox>
-            <xctk:ColorPicker x:Name="ColorPicker" SelectedColor="Black" SelectedColorChanged="ColorPicker_SelectedColorChanged" Margin="5,581,5,0" Grid.RowSpan="2" Background="#FFFAFAFA" Height="23" VerticalAlignment="Top"/>
+            <xctk:ColorPicker x:Name="ColorPicker" SelectedColor="Black" SelectedColorChanged="ColorPicker_SelectedColorChanged" Margin="5,581,5,0"
+                              Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Background="#FFFAFAFA" Height="23" VerticalAlignment="Top"/>
         </Grid>
     </DockPanel>
 </Window>
